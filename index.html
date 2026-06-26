@@ -225,10 +225,18 @@
   </button>
 
   <script>
-    if (window.innerWidth <= 480 && window.innerHeight > window.innerWidth) {
-      window.scrollTo(0, 60);
-      setTimeout(() => { document.body.style.overflow = 'hidden'; }, 100);
+    function applyMobileScroll() {
+      if (window.innerWidth <= 480 && window.innerHeight > window.innerWidth) {
+        document.body.style.overflow = '';
+        window.scrollTo(0, 60);
+        setTimeout(() => { document.body.style.overflow = 'hidden'; }, 100);
+      } else {
+        document.body.style.overflow = '';
+        window.scrollTo(0, 0);
+      }
     }
+    applyMobileScroll();
+    window.addEventListener('resize', applyMobileScroll);
 
     const audio = document.getElementById('bg-audio');
     const btn = document.getElementById('mute-btn');
