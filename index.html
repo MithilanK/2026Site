@@ -127,8 +127,19 @@
     }
 
     @media (max-width: 480px) and (orientation: portrait) {
+      html {
+        overflow: visible;
+      }
+
       body {
-        padding-top: 3vh;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        height: calc(100vh + 60px);
+        padding-top: calc(3vh + 60px);
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
       }
 
       .bg {
@@ -136,7 +147,7 @@
         height: 100vw;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg) scale(1.1);
         background-position: center center;
       }
 
@@ -201,12 +212,12 @@
   </audio>
 
   <button id="mute-btn" title="Toggle audio">
-    <svg id="icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter">
+    <svg id="icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
     </svg>
-    <svg id="icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" style="display:none">
+    <svg id="icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="display:none">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <line x1="23" y1="9" x2="17" y2="15"/>
       <line x1="17" y1="9" x2="23" y2="15"/>
@@ -214,6 +225,10 @@
   </button>
 
   <script>
+    if (window.innerWidth <= 480 && window.innerHeight > window.innerWidth) {
+      window.scrollTo(0, 60);
+    }
+
     const audio = document.getElementById('bg-audio');
     const btn = document.getElementById('mute-btn');
     const iconOn = document.getElementById('icon-on');
