@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
   <title>Mithilan Kantharuban</title>
   <style>
     * {
@@ -88,8 +89,8 @@
       border-radius: 0;
       cursor: pointer;
       color: rgba(255, 255, 255, 0.6);
-      width: 40px;
-      height: 40px;
+      width: 28px;
+      height: 28px;
       padding: 0;
       z-index: 1;
     }
@@ -99,8 +100,8 @@
     }
 
     #mute-btn svg {
-      width: 40px;
-      height: 40px;
+      width: 28px;
+      height: 28px;
     }
 
     .bg {
@@ -109,6 +110,20 @@
       width: 100%; height: 100%;
       background: url('IMG_3669.JPG') center center / cover no-repeat;
       z-index: -1;
+    }
+
+    .bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.55) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(0,0,0,0.55) 100%
+      );
     }
 
     @media (max-width: 480px) and (orientation: portrait) {
@@ -121,8 +136,8 @@
         height: 100vw;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) rotate(90deg) scale(1.2);
-        background-position: center 70%;
+        transform: translate(-50%, -50%) rotate(90deg);
+        background-position: center center;
       }
 
       h1 {
@@ -151,6 +166,16 @@
       #mute-btn {
         bottom: 2vh;
       }
+
+      .bg::after {
+        background: linear-gradient(
+          to right,
+          rgba(0,0,0,0.55) 0%,
+          transparent 30%,
+          transparent 70%,
+          rgba(0,0,0,0.55) 100%
+        );
+      }
     }
 
     .dash { display: none; }
@@ -176,12 +201,12 @@
   </audio>
 
   <button id="mute-btn" title="Toggle audio">
-    <svg id="icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+    <svg id="icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
     </svg>
-    <svg id="icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="display:none">
+    <svg id="icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" style="display:none">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <line x1="23" y1="9" x2="17" y2="15"/>
       <line x1="17" y1="9" x2="23" y2="15"/>
