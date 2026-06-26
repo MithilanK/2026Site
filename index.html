@@ -227,7 +227,7 @@
   <script>
     if (window.innerWidth <= 480 && window.innerHeight > window.innerWidth) {
       window.scrollTo(0, 60);
-      window.addEventListener('scroll', () => window.scrollTo(0, 60));
+      setTimeout(() => { document.body.style.overflow = 'hidden'; }, 100);
     }
 
     const audio = document.getElementById('bg-audio');
