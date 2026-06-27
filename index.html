@@ -266,6 +266,12 @@
 
   <script>
     const bg = document.querySelector('.bg');
+    const crt = document.querySelector('.crt');
+
+    if (Math.random() > 0.1) {
+      crt.remove();
+      bg.style.filter = '';
+    }
 
     if (window.innerWidth > 480) {
       document.addEventListener('mousemove', (e) => {
