@@ -203,16 +203,14 @@
 
     .dash { display: none; }
 
-    .fade-cover {
-      position: fixed;
-      inset: 0;
-      background: #000;
+    /* Leaving to the Vamp dashboard: fade out ONLY the foreground so the
+       background stays put. The dashboard shows the same backdrop and pops its
+       widgets in, so the background reads as continuous, not reloaded. */
+    h1, .sub, #mute-btn { transition: opacity 0.4s ease, transform 0.4s ease; }
+    body.leaving h1, body.leaving .sub, body.leaving #mute-btn {
       opacity: 0;
-      pointer-events: none;
-      z-index: 3;
-      transition: opacity 0.5s ease;
+      transform: translateY(-8px);
     }
-    .fade-cover.active { opacity: 1; }
 
     html {
       border-radius: 2%;
@@ -260,7 +258,6 @@
     <span class="item"><a href="https://vamp.mithilank.com" id="vamp-link">Vamp</a></span>
   </div>
 
-  <div class="fade-cover"></div>
 
   <audio id="bg-audio" loop>
     <source src="audio.mp3" type="audio/mpeg">
@@ -336,15 +333,15 @@
       iconOff.style.display = audio.muted ? 'block' : 'none';
     });
 
-    // Subtle crossfade to the Vamp dashboard: fade this page to black, then navigate.
-    // vamp.mithilank.com fades in from black on load, so the two feel continuous.
+    // Leaving to the Vamp dashboard: fade out only the foreground text (the
+    // background stays), then navigate. The dashboard uses the same backdrop and
+    // pops its widgets in, so it feels like the widgets swap over one continuous view.
     const vampLink = document.getElementById('vamp-link');
-    const fadeCover = document.querySelector('.fade-cover');
-    if (vampLink && fadeCover) {
+    if (vampLink) {
       vampLink.addEventListener('click', (e) => {
         e.preventDefault();
-        fadeCover.classList.add('active');
-        setTimeout(() => { window.location.href = vampLink.href; }, 480);
+        document.body.classList.add('leaving');
+        setTimeout(() => { window.location.href = vampLink.href; }, 380);
       });
     }
   </script>
