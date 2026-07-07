@@ -203,6 +203,17 @@
 
     .dash { display: none; }
 
+    .fade-cover {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 3;
+      transition: opacity 0.5s ease;
+    }
+    .fade-cover.active { opacity: 1; }
+
     html {
       border-radius: 2%;
       overflow: hidden;
@@ -245,7 +256,11 @@
     <span class="item"><a href="https://www.instagram.com/mithilan.k/" target="_blank">Instagram</a></span>
     <span class="dot"> · </span>
     <span class="item"><a href="https://github.com/MithilanK" target="_blank">GitHub</a></span>
+    <span class="dot"> · </span>
+    <span class="item"><a href="https://vamp.mithilank.com" id="vamp-link">Vamp</a></span>
   </div>
+
+  <div class="fade-cover"></div>
 
   <audio id="bg-audio" loop>
     <source src="audio.mp3" type="audio/mpeg">
@@ -320,6 +335,18 @@
       iconOn.style.display = audio.muted ? 'none' : 'block';
       iconOff.style.display = audio.muted ? 'block' : 'none';
     });
+
+    // Subtle crossfade to the Vamp dashboard: fade this page to black, then navigate.
+    // vamp.mithilank.com fades in from black on load, so the two feel continuous.
+    const vampLink = document.getElementById('vamp-link');
+    const fadeCover = document.querySelector('.fade-cover');
+    if (vampLink && fadeCover) {
+      vampLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        fadeCover.classList.add('active');
+        setTimeout(() => { window.location.href = vampLink.href; }, 480);
+      });
+    }
   </script>
 </body>
 </html>
