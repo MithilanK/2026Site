@@ -203,14 +203,10 @@
 
     .dash { display: none; }
 
-    /* Leaving to the Vamp dashboard: fade out ONLY the foreground so the
-       background stays put. The dashboard shows the same backdrop and pops its
-       widgets in, so the background reads as continuous, not reloaded. */
-    h1, .sub, #mute-btn { transition: opacity 0.4s ease, transform 0.4s ease; }
-    body.leaving h1, body.leaving .sub, body.leaving #mute-btn {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
+    /* No leaving animation for the Vamp link: the dashboard is a pixel-match of
+       this page (same photo, heading, links) with the widgets added in the centre,
+       so a plain navigation lets the header/background stay put and only the
+       widgets appear — as seamless as a cross-subdomain jump can be. */
 
     html {
       border-radius: 2%;
@@ -332,18 +328,6 @@
       iconOn.style.display = audio.muted ? 'none' : 'block';
       iconOff.style.display = audio.muted ? 'block' : 'none';
     });
-
-    // Leaving to the Vamp dashboard: fade out only the foreground text (the
-    // background stays), then navigate. The dashboard uses the same backdrop and
-    // pops its widgets in, so it feels like the widgets swap over one continuous view.
-    const vampLink = document.getElementById('vamp-link');
-    if (vampLink) {
-      vampLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.body.classList.add('leaving');
-        setTimeout(() => { window.location.href = vampLink.href; }, 380);
-      });
-    }
   </script>
 </body>
 </html>
