@@ -114,6 +114,28 @@
       height: 28px;
     }
 
+    .corner-links {
+      position: fixed;
+      bottom: 4vh;
+      left: 4vw;
+      display: flex;
+      gap: 0.9rem;
+      z-index: 2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+    }
+
+    .corner-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+    }
+
+    .corner-links a:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
     .bg {
       position: absolute;
       top: 0; left: 0;
@@ -188,6 +210,11 @@
 
       #mute-btn {
         bottom: 2vh;
+      }
+
+      .corner-links {
+        bottom: 2vh;
+        left: 4vw;
       }
 
       .bg::after {
@@ -355,8 +382,11 @@
     <span class="item"><a href="https://www.instagram.com/mithilan.k/" target="_blank">Instagram</a></span>
     <span class="dot"> · </span>
     <span class="item"><a href="https://github.com/MithilanK" target="_blank">GitHub</a></span>
-    <span class="dot"> · </span>
-    <span class="item"><a href="https://vamp.mithilank.com" id="vamp-link">Vamp</a></span>
+  </div>
+
+  <div class="corner-links">
+    <a href="https://vamp.mithilank.com" id="vamp-link">vamp</a>
+    <a href="https://projects.mithilank.com">lab</a>
   </div>
 
 
