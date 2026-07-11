@@ -235,7 +235,7 @@
         );
     }
 
-    /* ===== retro easter-egg mode (toggle with the backtick ` key) ===== */
+    /* ===== retro easter-egg mode (toggle by typing "fun") ===== */
     #retro {
       display: none;
       position: fixed;
@@ -373,18 +373,18 @@
     </svg>
   </button>
 
-  <!-- ===== retro easter-egg overlay (press the ` backtick key to toggle) ===== -->
+  <!-- ===== retro easter-egg overlay (type "fun" to toggle) ===== -->
   <div id="retro">
-    <div class="retro-marquee"><span>★彡 WELCOME 2 MITHILAN'S KORNER OF THE WWW 彡★ &nbsp;&nbsp; sign the guestbook &nbsp;•&nbsp; best viewed at 800×600 in netscape navigator &nbsp;•&nbsp; this site is under construction 🚧 &nbsp;•&nbsp; turn ur sound ON 🔊 &nbsp;•&nbsp; thx 4 visiting :3 &nbsp;•&nbsp;</span></div>
+    <div class="retro-marquee"><span>WELCOME TO MITHILAN'S WEBSITE &nbsp;•&nbsp; under construction since forever &nbsp;•&nbsp; best viewed at 800×600 in netscape navigator &nbsp;•&nbsp; turn your sound on 🔊 &nbsp;•&nbsp; you found the secret page, nice &nbsp;•&nbsp;</span></div>
 
-    <div class="retro-title">~*~ mithilan ~*~</div>
-    <div class="retro-blink">*·˚ NEW!! ˚·* now with 100% more vibes</div>
+    <div class="retro-title">mithilan</div>
+    <div class="retro-blink">secret mode // enabled</div>
 
     <div class="retro-box">
-      hai!! ^_^ welcome 2 my lil corner of the internet.<br>
-      im <b>mithilan</b> — CS @ NYU, i make games n weird web stuff.<br>
-      ur currently viewing the <b>SEKRET retro mode</b>. congrats u found it :3<br><br>
-      <marquee behavior="alternate" scrollamount="4">･ﾟ✧ press ` again 2 go back 2 the boring site ✧ﾟ･</marquee>
+      welcome to the old internet.<br>
+      i'm <b>mithilan</b> — CS @ NYU, i make games and web stuff.<br>
+      you found the hidden version of the site. nice.<br><br>
+      <marquee behavior="alternate" scrollamount="4">type "fun" again to go back to normal</marquee>
     </div>
 
     <div class="retro-links">
@@ -414,7 +414,7 @@
       <div class="retro-counter" id="retro-count">00000000</div>
     </div>
 
-    <a class="retro-exit" href="#" onclick="toggleRetro();return false;">[ x ] exit to the boring grown-up site</a>
+    <a class="retro-exit" href="#" onclick="toggleRetro();return false;">[ x ] back to the normal site</a>
   </div>
   <div id="retro-cat">🐱</div>
 
@@ -475,25 +475,30 @@
       iconOff.style.display = audio.muted ? 'block' : 'none';
     });
 
-    // ===== retro easter-egg: toggle with the backtick ` key =====
+    // ===== retro easter-egg: toggle by typing the word "fun" =====
     function toggleRetro() {
       document.body.classList.toggle('retro-on');
     }
+    let retroBuffer = '';
     document.addEventListener('keydown', (e) => {
-      if (e.key === '`' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        e.preventDefault();
-        toggleRetro();
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key && e.key.length === 1 && /[a-z]/i.test(e.key)) {
+        retroBuffer = (retroBuffer + e.key.toLowerCase()).slice(-8);
+        if (retroBuffer.endsWith('fun')) {
+          retroBuffer = '';
+          toggleRetro();
+        }
       }
     });
 
-    // fake visitor counter (persists in localStorage, creeps up each visit)
+    // real cross-visitor counter via abacus (countapi-style hit endpoint)
     (function () {
       const el = document.getElementById('retro-count');
-      let n = parseInt(localStorage.getItem('retroVisits') || '0', 10);
-      if (!n) n = 13370 + Math.floor(Math.random() * 4000);
-      n += 1;
-      localStorage.setItem('retroVisits', String(n));
-      el.textContent = String(n).padStart(8, '0');
+      const show = (v) => { el.textContent = String(v).padStart(8, '0'); };
+      fetch('https://abacus.jasoncameron.dev/hit/mithilank-2026site/visits')
+        .then((r) => r.json())
+        .then((d) => { if (d && typeof d.value === 'number') show(d.value); })
+        .catch(() => { el.textContent = '--------'; });
     })();
 
     // oneko-style cursor-following cat (emoji, lerped, flips with direction)
