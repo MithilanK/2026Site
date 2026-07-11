@@ -302,6 +302,10 @@
     .retro-box a { color:#00ffff; }
     .retro-box a:visited { color:#ff77ff; }
 
+    .retro-video { margin: 14px auto; max-width: 420px; padding: 0 12px; }
+    .retro-video video { width: 100%; display: block; border: 4px ridge #7f7fff; background: #000; }
+    .retro-video .cap { color:#fff; font-size:12px; margin-top:4px; }
+
     .retro-links { margin: 6px auto; }
     .retro-links a {
       color:#ffff00; text-decoration: underline; font-size: 16px;
@@ -382,9 +386,14 @@
 
     <div class="retro-box">
       welcome to the old internet.<br>
-      i'm <b>mithilan</b> — CS @ NYU, i make games and web stuff.<br>
-      you found the hidden version of the site. nice.<br><br>
+      i'm <b>mithilan</b> — CS @ NYU, i make games and ai stuff.<br>
+      you found the hidden version of the site nice.<br><br>
       <marquee behavior="alternate" scrollamount="4">type "fun" again to go back to normal</marquee>
+    </div>
+
+    <div class="retro-video">
+      <video id="retro-clip" src="me-and-sister.mp4" playsinline controls preload="metadata"></video>
+      <div class="cap">me + my sister</div>
     </div>
 
     <div class="retro-links">
@@ -477,7 +486,17 @@
 
     // ===== retro easter-egg: toggle by typing the word "fun" =====
     function toggleRetro() {
-      document.body.classList.toggle('retro-on');
+      const on = document.body.classList.toggle('retro-on');
+      const clip = document.getElementById('retro-clip');
+      if (on) {
+        // entering retro (from a user keypress/click, so audio is allowed):
+        // stop the site background music and play the clip with its own sound
+        try { audio.pause(); } catch (e) {}
+        if (clip) { clip.currentTime = 0; clip.play().catch(function () {}); }
+      } else {
+        if (clip) clip.pause();
+        audio.play().catch(function () {});
+      }
     }
     let retroBuffer = '';
     document.addEventListener('keydown', (e) => {
